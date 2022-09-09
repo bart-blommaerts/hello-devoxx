@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-devoxx-deployment
+  labels:
+    app: hello-devoxx-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-devoxx-app
+  template:
+    metadata:
+      labels:
+        app: hello-devoxx-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - arm64
+      containers:
+      - name: nginx
+        image: 836964591189.dkr.ecr.eu-west-3.amazonaws.com/devoxx:latest
+        ports:
+        - name: http
+          containerPort: 80
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/os: linux
