@@ -22,13 +22,13 @@ spec:
               - key: kubernetes.io/arch
                 operator: In
                 values:
-                - arm64
+                - amd64
       containers:
       - name: nginx
-        image: 836964591189.dkr.ecr.eu-west-3.amazonaws.com/devoxx:latest
+        image: 836964591189.dkr.ecr.eu-west-3.amazonaws.com/devoxx:mini-latest-amd2
         ports:
         - name: http
-          containerPort: 80
+          containerPort: 8080
         imagePullPolicy: IfNotPresent
       nodeSelector:
         kubernetes.io/os: linux
