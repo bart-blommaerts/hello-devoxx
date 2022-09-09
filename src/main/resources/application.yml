@@ -5,4 +5,4 @@ com:
   amazonaws:
     xray:
       emitters:
-        daemonAddress: xray-service.infra.svc.cluster.local:2000
+        daemonAddress: xray-service.default:2000

@@ -28,7 +28,7 @@ spec:
         image: 836964591189.dkr.ecr.eu-west-3.amazonaws.com/devoxx:mini-latest-amd2
         env:
           - name: AWS_XRAY_DAEMON_ADDRESS
-            value: "xray-service.infra.svc.cluster.local:2000"
+            value: "xray-service.default:2000"
         ports:
         - name: http
           containerPort: 8080
