@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "description": "readiness",
+      "host": "*",
+      "http_method": "GET",
+      "url_path": "/health/readiness",
+      "fixed_target": 0,
+      "rate": 0.0
+    },
+    {
+      "description": "liveness",
+      "host": "*",
+      "http_method": "GET",
+      "url_path": "/health/liveness",
+      "fixed_target": 0,
+      "rate": 0.0
+    }
+  ],
+  "default": {
+    "fixed_target": 1,
+    "rate": 0.1
+  }
+}

@@ -1,0 +1,8 @@
+aws:
+  xray.enabled: true
+
+com:
+  amazonaws:
+    xray:
+      emitters:
+        daemonAddress: xray-service.infra.svc.cluster.local:2000

@@ -1,0 +1,8 @@
+aws:
+  xray.enabled: true
+
+com:
+  amazonaws:
+    xray:
+      emitters:
+        daemonAddress: localhost:2000
