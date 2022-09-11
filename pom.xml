@@ -77,7 +77,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-xray-recorder-sdk-aws-sdk-instrumentor</artifactId>
+			<artifactId>aws-xray-recorder-sdk-aws-sdk-v2-instrumentor</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
