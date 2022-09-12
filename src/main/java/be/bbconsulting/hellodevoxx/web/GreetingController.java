@@ -1,15 +1,17 @@
 package be.bbconsulting.hellodevoxx.web;
 
 import be.bbconsulting.hellodevoxx.dynamodb.GreeterService;
+import org.springframework.beans.factory.ListableBeanFactoryExtensionsKt;
+import org.springframework.web.bind.annotation.*;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import com.amazonaws.xray.spring.aop.XRayEnabled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+
+import static org.springframework.http.HttpStatus.ACCEPTED;
 
 
 @RestController
@@ -18,6 +20,9 @@ public class GreetingController {
 
     GreeterService greeterService;
     DynamoDbClient ddb;
+
+    private static final String GREETING_TABLE_NAME = "greeter";
+    private static final String GREETING_KEY = "greeting";
 
     public GreetingController(GreeterService greeterService) {
         this.greeterService = greeterService;
@@ -31,9 +36,14 @@ public class GreetingController {
     }
 
     @RequestMapping("/")
-    public String home() {
-        String value = greeterService.getDynamoDBItem(ddb, "greeter","greeting", "hello darkness, my old friend" );
-
+    public String retrieve() {
+        String value = greeterService.getDynamoDBItem(ddb, GREETING_TABLE_NAME,GREETING_KEY, "hello darkness, my old friend" );
         return value;
+    }
+
+    @PostMapping("/")
+    @ResponseStatus(ACCEPTED)
+     public void create(@RequestBody String greeting) {
+        greeterService.putItemInTable(ddb, GREETING_TABLE_NAME, GREETING_KEY, greeting);
     }
 }

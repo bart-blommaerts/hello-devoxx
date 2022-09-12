@@ -1,10 +1,9 @@
 package be.bbconsulting.hellodevoxx.dynamodb;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.*;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -48,5 +47,34 @@ public class GreeterService {
             System.exit(1);
         }
         return "";
+    }
+
+    public static void putItemInTable(DynamoDbClient ddb,
+                                      String tableName,
+                                      String key,
+                                      String keyVal){
+
+        HashMap<String,AttributeValue> itemValues = new HashMap<String,AttributeValue>();
+
+        // Add all content to the table
+        itemValues.put(key, AttributeValue.builder().s(keyVal).build());
+
+        PutItemRequest request = PutItemRequest.builder()
+                .tableName(tableName)
+                .item(itemValues)
+                .build();
+
+        try {
+            ddb.putItem(request);
+            System.out.println(tableName +" was successfully updated");
+
+        } catch (ResourceNotFoundException e) {
+            System.err.format("Error: The Amazon DynamoDB table \"%s\" can't be found.\n", tableName);
+            System.err.println("Be sure that it exists and that you've typed its name correctly!");
+            System.exit(1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
 }
