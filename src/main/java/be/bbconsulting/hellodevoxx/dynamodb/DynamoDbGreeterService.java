@@ -1,6 +1,5 @@
 package be.bbconsulting.hellodevoxx.dynamodb;
 import org.springframework.stereotype.Service;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.*;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
@@ -8,15 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
-public class GreeterService {
+public class DynamoDbGreeterService {
 
     public static String getDynamoDBItem(DynamoDbClient ddb,String tableName,String key,String keyVal) {
 
-        HashMap<String,AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
+        HashMap<String,AttributeValue> keyToGet = new HashMap();
 
         keyToGet.put(key, AttributeValue.builder()
                 .s(keyVal).build());
@@ -54,7 +50,7 @@ public class GreeterService {
                                       String key,
                                       String keyVal){
 
-        HashMap<String,AttributeValue> itemValues = new HashMap<String,AttributeValue>();
+        HashMap<String,AttributeValue> itemValues = new HashMap();
 
         // Add all content to the table
         itemValues.put(key, AttributeValue.builder().s(keyVal).build());
@@ -66,7 +62,7 @@ public class GreeterService {
 
         try {
             ddb.putItem(request);
-            System.out.println(tableName +" was successfully updated");
+//            System.out.println(tableName +" was successfully updated");
 
         } catch (ResourceNotFoundException e) {
             System.err.format("Error: The Amazon DynamoDB table \"%s\" can't be found.\n", tableName);
