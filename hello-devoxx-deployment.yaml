@@ -25,12 +25,12 @@ spec:
                 - amd64
       containers:
       - name: hello-devoxx
-        image: 836964591189.dkr.ecr.eu-west-3.amazonaws.com/devoxx:hello-devoxx-3
+        image: 836964591189.dkr.ecr.eu-west-3.amazonaws.com/devoxx:dynamodb-streams-3
         env:
           - name: AWS_XRAY_DAEMON_ADDRESS
             value: "xray-service.default:2000"
           - name: AWS_XRAY_ENABLED
-          value: "true"
+            value: "true"
         ports:
         - name: http
           containerPort: 8080
