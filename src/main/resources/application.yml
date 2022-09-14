@@ -1,3 +1,7 @@
+spring:
+  application:
+    name: hello-devoxx
+
 aws:
   xray.enabled: true
 

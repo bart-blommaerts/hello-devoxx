@@ -14,7 +14,6 @@ public class XRayInterceptor extends BaseAbstractXRayInterceptor {
     @Override
     @Pointcut("@within(com.amazonaws.xray.spring.aop.XRayEnabled)")
     public void xrayEnabledClasses() {
-        System.out.println("xray");
         // no logic needed here
     }
 }

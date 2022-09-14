@@ -25,5 +25,4 @@ public class SnsGreetingService {
             System.exit(1);
         }
     }
-
 }

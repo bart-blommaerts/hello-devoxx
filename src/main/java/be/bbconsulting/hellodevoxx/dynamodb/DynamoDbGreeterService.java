@@ -62,7 +62,6 @@ public class DynamoDbGreeterService {
 
         try {
             ddb.putItem(request);
-//            System.out.println(tableName +" was successfully updated");
 
         } catch (ResourceNotFoundException e) {
             System.err.format("Error: The Amazon DynamoDB table \"%s\" can't be found.\n", tableName);
